@@ -1,10 +1,6 @@
 package com.example.crashhandlerlibrary;
 
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
-import java.util.Arrays;
 
 public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
     LibraryState state;
@@ -32,14 +28,12 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
             // This is a design flaw in Java - it should append to the list of crash handler
             // and not maintain a global one.
             state.disabled = true;
-            String s = Arrays.toString(t.getStackTrace());
 
-            Toast.makeText(state.userApp, s, Toast.LENGTH_SHORT).show();
+            ExceptionStorage.save(state, t, e);
 
             if (state.old != null) {
                 state.old.uncaughtException(t, e);
             }
-
         } catch (Exception ee) {
             ee.printStackTrace();
         } finally {
