@@ -81,20 +81,20 @@ public class ExceptionStorage {
         }
 
         Stack<File> s = new Stack<>();
-        String json = null;
+        String json;
         try {
             JSONObject o = generateJsonFromFiles(files, s);
-            json = o.toString(4);
+            json = o.toString();
         } catch (JSONException e) {
             e.printStackTrace();
             return;
         }
 
-        Log.d(TAG, String.format(Locale.ENGLISH, "Uploading %d files, %d bytes", s.size(), json.length()));
         if (s.size() == 0) {
             Log.d(TAG, "Nothing to upload");
             return;
         }
+        Log.d(TAG, String.format(Locale.ENGLISH, "Uploading %d files, %d bytes", s.size(), json.length()));
         data.uploader.upload(data.baseurl, json, new NetworkUploaderResult() {
             @Override
             public void onSuccess() {
