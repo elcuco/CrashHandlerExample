@@ -1,10 +1,9 @@
 package com.example.crashhandlerexample
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import java.lang.Exception
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,8 +14,7 @@ class MainActivity : AppCompatActivity() {
     fun onThrowCatchClick(v: View) {
         try {
             throw Exception("Everything is fine")
-        }
-        catch (e: Exception) {
+        } catch (e: Exception) {
             Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
         }
     }
