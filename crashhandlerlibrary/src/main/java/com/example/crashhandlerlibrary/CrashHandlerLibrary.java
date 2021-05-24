@@ -1,10 +1,12 @@
 package com.example.crashhandlerlibrary;
 
 import android.app.Application;
+import android.util.Log;
 
 import java.io.File;
 
 public class CrashHandlerLibrary {
+    private static final String TAG = "CrashHandler";
     private static LibraryState data;
 
     // In theory I should save the old handler, and then restore on uninstall
@@ -22,6 +24,19 @@ public class CrashHandlerLibrary {
         data = new LibraryState(app);
         data.old = Thread.getDefaultUncaughtExceptionHandler();
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(data));
+        Log.d(TAG, "Crash handleing setup done");
+    }
+
+    public static void setUploader(NetworkUploader uploader) {
+        data.uploader = uploader;
+    }
+
+    public static void uploadCrashes() {
+        ExceptionStorage.uploadCrashes(data);
+    }
+
+    public static void discardLocalCrashes() {
+        ExceptionStorage.discardLocalCrashes(data);
     }
 
     // I admit this will not always work... but its a nice hack :)
