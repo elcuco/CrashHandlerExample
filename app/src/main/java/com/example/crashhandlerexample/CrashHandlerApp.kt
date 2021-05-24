@@ -42,10 +42,6 @@ class CrashHandlerApp : Application() {
             })
         }
 
-        CrashHandlerLibrary.setup(this)
-        CrashHandlerLibrary.setUploader(uploader)
-        CrashHandlerLibrary.uploadCrashes()
-//      This also exists, but its not very useful
-//      CrashHandlerLibrary.discardLocalCrashes()
+        CrashHandlerLibrary.setup(this, uploader)
     }
 }

@@ -21,19 +21,27 @@ public class CrashHandlerLibrary {
 
     public static void setup(Application app)
     {
+        setup(app, null);
+    }
+
+    public static void setup(Application app, NetworkUploader uploader)
+    {
         data = new LibraryState(app);
         data.old = Thread.getDefaultUncaughtExceptionHandler();
+        data.uploader = uploader;
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(data));
-        Log.d(TAG, "Crash handleing setup done");
+        Log.d(TAG, "Crash handling setup done");
+        data.registerAlarm();
+        if (uploader != null) {
+            uploadCrashes();
+        }
     }
 
     public static void setUploader(NetworkUploader uploader) {
         data.uploader = uploader;
     }
 
-    public static void uploadCrashes() {
-        ExceptionStorage.uploadCrashes(data);
-    }
+    public static void uploadCrashes() { ExceptionStorage.uploadCrashes(data); }
 
     public static void discardLocalCrashes() {
         ExceptionStorage.discardLocalCrashes(data);
