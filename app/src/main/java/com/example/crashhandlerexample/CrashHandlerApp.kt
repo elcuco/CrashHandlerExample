@@ -43,5 +43,10 @@ class CrashHandlerApp : Application() {
         }
 
         CrashHandlerLibrary.setup(this, uploader)
+
+        // You can also use the default HTTP uploader, which works, but sucks
+        // salty chocolate balls. But it is simple enough for this library needs,
+        // and has no external dependencies.
+        // CrashHandlerLibrary.setup(this)
     }
 }

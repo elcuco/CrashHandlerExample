@@ -1,4 +1,3 @@
-package com.example.crashhandlerlibrary;
 
 import android.app.Application;
 import android.util.Log;
@@ -21,7 +20,7 @@ public class CrashHandlerLibrary {
 
     public static void setup(Application app)
     {
-        setup(app, null);
+        setup(app, new SimpleNetworkUploader());
     }
 
     public static void setup(Application app, NetworkUploader uploader)
@@ -48,7 +47,7 @@ public class CrashHandlerLibrary {
     }
 
     // I admit this will not always work... but its a nice hack :)
-    // I can use theoritycally safetynet, but I don't want to import GooglePlay seervices
+    // I can use theoretically safetynet, but I don't want to import GooglePlay services
     // libraries into this library. I want this to be a self contained library.
     @SuppressWarnings("RedundantIfStatement")
     public static boolean isRooted(Application userApp) {
